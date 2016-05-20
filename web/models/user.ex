@@ -11,7 +11,7 @@ defmodule Rumbl.User do
   end
 
   @required_fields ~w(name username)
-  @optional_fields ~w(password)
+  @optional_fields ~w()
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -23,5 +23,21 @@ defmodule Rumbl.User do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> validate_length(:username, min: 1, max: 20)
+  end
+
+  def registration_changeset(model, params) do
+    model
+    |> changeset(params)
+    |> cast(params, ~w(password), [])
+    |> validate_length(:password, min: 6, max: 100)
+    |> put_pass_hash
+  end
+
+  defp put_pass_hash(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
+        put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(password))
+      _ -> changeset
+    end
   end
 end

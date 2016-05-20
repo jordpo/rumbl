@@ -17,3 +17,5 @@ config :rumbl, Rumbl.Repo,
   database: "rumbl_test",
   hostname: "192.168.99.100",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :comeonin, :bcrypt_log_rounds, 4
