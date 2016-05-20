@@ -1,0 +1,7 @@
+<h1>Listing all users</h1>
+<%= for u <- @users do %>
+  <div>
+    <%= render "user.html", user: u %>
+    <%= link "View", to: user_path(@conn, :show, u.id)%>
+  </div>
+<% end %>
