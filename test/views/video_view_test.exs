@@ -16,4 +16,11 @@ defmodule Rumbl.VideoViewTest do
       assert String.contains?(content, video.title)
     end
   end
+
+  test "renders new.html", %{conn: conn} do
+    changeset = Video.changeset(%Video{})
+    categories = [{"cats", 123}]
+    content = render_to_string(Rumbl.VideoView, "new.html", conn: conn, changeset: changeset, categories: categories)
+    assert String.contains?(content, "New video")
+  end
 end

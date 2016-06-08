@@ -22,6 +22,7 @@ defmodule Rumbl.ModelCase do
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
       import Rumbl.ModelCase
+      import Rumbl.TestHelpers
     end
   end
 
@@ -57,5 +58,9 @@ defmodule Rumbl.ModelCase do
   """
   def errors_on(model, data) do
     model.__struct__.changeset(model, data).errors
+  end
+
+  def registration_errors_on(model, data) do
+    model.__struct__.registration_changeset(model, data).errors
   end
 end
